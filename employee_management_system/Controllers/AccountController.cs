@@ -116,7 +116,7 @@ public class AccountController(AppDbContext _appDbContext, IPasswordHashService 
 
 
     [HttpGet]
-    [Authorize(Roles = "EMP")] // Example: Only allow CEOs to access this action
+    [Authorize(Roles = "EMP")] // Example: Only allow EMP to access this action
     public IActionResult EmpAction()
     {
         return View();
