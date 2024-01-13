@@ -1,14 +1,20 @@
-﻿namespace employee_management_system.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace employee_management_system.Models;
 
 public class ModelsData
 {
 }
 public class UserModel
 {
+    [Key]
     public int ID { get; set; }
     public string UserName { get; set; }
     public string Password { get; set; }
     public UserRole Role { get; set; }
+
+    // Navigation property for Employee
+    public EmployeeModel Employee { get; set; }
 }
 
 public enum UserRole
@@ -20,6 +26,7 @@ public enum UserRole
 
 public class EmployeeModel
 {
+    [Key]
     public int EmployeeID { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
@@ -35,15 +42,25 @@ public class EmployeeModel
     public int CreatedBy { get; set; }
     public DateTime UpdatedBy { get; set; }
     public int? DeletedBy { get; set; }
+    // Foreign keys and navigation properties
     public int UserID { get; set; }
+    public UserModel User { get; set; }
+
     public int TaskID { get; set; }
+    public TaskModel Task { get; set; }
+
     public int DepartmentId { get; set; }
+    public DepartmentModel Department { get; set; }
 }
 
 public class CEOModel
 {
+    [Key]
     public int CEOID { get; set; }
+    // Foreign key and navigation property
     public int UserID { get; set; }
+    public UserModel User { get; set; }
+
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string Email { get; set; }
@@ -55,9 +72,13 @@ public class CEOModel
 
 public class SupervisorModel
 {
+    [Key]
     public int SPID { get; set; }
     public int TaskID { get; set; }
+    public TaskModel Task { get; set; }
+
     public int DepartmentID { get; set; }
+    public DepartmentModel Department { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string Email { get; set; }
@@ -77,10 +98,14 @@ public class SupervisorModel
 
 public class TaskModel
 {
+    [Key]
     public int Id { get; set; }
     public string TaskName { get; set; }
     public string TaskDescription { get; set; }
     public TaskStatus Status { get; set; }
+
+    // Navigation properties
+    public ICollection<EmployeeModel> Employees { get; set; }
 }
 
 public enum TaskStatus
@@ -94,6 +119,12 @@ public enum TaskStatus
 
 public class DepartmentModel
 {
+    [Key]
     public int DeptId { get; set; }
     public string DeptName { get; set; }
+
+
+    // Navigation properties
+    public ICollection<EmployeeModel> Employees { get; set; }
+    public ICollection<SupervisorModel> Supervisors { get; set; }
 }
