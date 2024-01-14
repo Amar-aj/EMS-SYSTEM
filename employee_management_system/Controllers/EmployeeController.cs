@@ -25,7 +25,7 @@ public class EmployeeController(AppDbContext _context, ICurrentUser _currentUser
         {
             return View(employee);
         }
-        ViewData["DepartmentId"] = new SelectList(_context.Departments, "DeptId", "DeptId", employee.DepartmentId);
+        //ViewData["DepartmentId"] = new SelectList(_context.Departments, "DeptId", "DeptId", employee.DepartmentId);
         //ViewData["TaskID"] = new SelectList(_context.Tasks, "Id", "Id", employeeModel.TaskID);
         //ViewData["UserID"] = new SelectList(_context.Users, "ID", "ID", employeeModel.UserID);
         return View(employee);
@@ -36,12 +36,11 @@ public class EmployeeController(AppDbContext _context, ICurrentUser _currentUser
         int userId = await _currentUser.GetCurrentUserIdAsync();
 
         employee.UserID = userId;
-        employee.CreatedBy = userId;
         employee.UpdatedBy = userId;
         employee.UpdatedOn = DateTime.Now;
         if (employee.EmployeeID < 0)
         {
-
+            employee.CreatedBy = userId;
             _context.Add(employee);
 
         }
@@ -51,8 +50,6 @@ public class EmployeeController(AppDbContext _context, ICurrentUser _currentUser
         }
         await _context.SaveChangesAsync();
         employee = await _context.Employees.FirstOrDefaultAsync(x => x.UserID == userId);
-
-        ViewData["DepartmentId"] = new SelectList(_context.Departments, "DeptId", "DeptId", employee.DepartmentId);
         return View(employee);
     }
 
