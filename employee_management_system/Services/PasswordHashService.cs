@@ -9,15 +9,9 @@ namespace employee_management_system.Services
         Task<bool> VerifyPasswordAsync(string hashedPassword, string providedPassword);
     }
 
-    public class PasswordHashService : IPasswordHashService
+    public class PasswordHashService(IPasswordHasher<UserModel> _passwordHasher) : IPasswordHashService
     {
-        private readonly IPasswordHasher<UserModel> _passwordHasher;
-
-        public PasswordHashService(IPasswordHasher<UserModel> passwordHasher)
-        {
-            _passwordHasher = passwordHasher;
-        }
-
+      
         public async Task<string> HashPasswordAsync(string password)
         {
             return await Task.Run(() =>

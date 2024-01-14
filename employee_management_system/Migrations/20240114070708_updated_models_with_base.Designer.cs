@@ -12,8 +12,8 @@ using employee_management_system.Data;
 namespace employee_management_system.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240113155937_NavigationUpdate")]
-    partial class NavigationUpdate
+    [Migration("20240114070708_updated_models_with_base")]
+    partial class updated_models_with_base
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,11 +36,17 @@ namespace employee_management_system.Migrations
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("DOJ")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("DeletedBy")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("DeletedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -50,11 +56,17 @@ namespace employee_management_system.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UpdatedBy")
+                    b.Property<int?>("UpdatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("UserID")
@@ -75,9 +87,30 @@ namespace employee_management_system.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DeptId"));
 
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DeletedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("DeptName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("UpdatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedOn")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("DeptId");
 
@@ -102,6 +135,9 @@ namespace employee_management_system.Migrations
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("DOB")
                         .HasColumnType("datetime2");
 
@@ -111,7 +147,10 @@ namespace employee_management_system.Migrations
                     b.Property<int?>("DeletedBy")
                         .HasColumnType("int");
 
-                    b.Property<int>("DepartmentId")
+                    b.Property<DateTime>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DepartmentId")
                         .HasColumnType("int");
 
                     b.Property<string>("District")
@@ -125,6 +164,9 @@ namespace employee_management_system.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -142,10 +184,13 @@ namespace employee_management_system.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TaskID")
+                    b.Property<int?>("TaskID")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("UpdatedBy")
+                    b.Property<int?>("UpdatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("UserID")
@@ -181,6 +226,9 @@ namespace employee_management_system.Migrations
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("DOB")
                         .HasColumnType("datetime2");
 
@@ -190,7 +238,10 @@ namespace employee_management_system.Migrations
                     b.Property<int?>("DeletedBy")
                         .HasColumnType("int");
 
-                    b.Property<int>("DepartmentID")
+                    b.Property<DateTime>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DepartmentID")
                         .HasColumnType("int");
 
                     b.Property<string>("District")
@@ -204,6 +255,9 @@ namespace employee_management_system.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -221,17 +275,25 @@ namespace employee_management_system.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TaskID")
+                    b.Property<int?>("TaskID")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("UpdatedBy")
+                    b.Property<int?>("UpdatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedOn")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("UserID")
+                        .HasColumnType("int");
 
                     b.HasKey("SPID");
 
                     b.HasIndex("DepartmentID");
 
                     b.HasIndex("TaskID");
+
+                    b.HasIndex("UserID");
 
                     b.ToTable("Supervisors");
                 });
@@ -244,6 +306,21 @@ namespace employee_management_system.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -254,6 +331,12 @@ namespace employee_management_system.Migrations
                     b.Property<string>("TaskName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UpdatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedOn")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -268,12 +351,33 @@ namespace employee_management_system.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Role")
                         .HasColumnType("int");
+
+                    b.Property<int?>("UpdatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UserName")
                         .IsRequired()
@@ -299,15 +403,11 @@ namespace employee_management_system.Migrations
                 {
                     b.HasOne("employee_management_system.Models.DepartmentModel", "Department")
                         .WithMany("Employees")
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DepartmentId");
 
                     b.HasOne("employee_management_system.Models.TaskModel", "Task")
                         .WithMany("Employees")
-                        .HasForeignKey("TaskID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TaskID");
 
                     b.HasOne("employee_management_system.Models.UserModel", "User")
                         .WithOne("Employee")
@@ -326,19 +426,23 @@ namespace employee_management_system.Migrations
                 {
                     b.HasOne("employee_management_system.Models.DepartmentModel", "Department")
                         .WithMany("Supervisors")
-                        .HasForeignKey("DepartmentID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DepartmentID");
 
                     b.HasOne("employee_management_system.Models.TaskModel", "Task")
                         .WithMany()
-                        .HasForeignKey("TaskID")
+                        .HasForeignKey("TaskID");
+
+                    b.HasOne("employee_management_system.Models.UserModel", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Department");
 
                     b.Navigation("Task");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("employee_management_system.Models.DepartmentModel", b =>
@@ -355,8 +459,7 @@ namespace employee_management_system.Migrations
 
             modelBuilder.Entity("employee_management_system.Models.UserModel", b =>
                 {
-                    b.Navigation("Employee")
-                        .IsRequired();
+                    b.Navigation("Employee");
                 });
 #pragma warning restore 612, 618
         }

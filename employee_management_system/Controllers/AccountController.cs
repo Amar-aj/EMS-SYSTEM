@@ -10,7 +10,7 @@ using employee_management_system.Services;
 
 namespace employee_management_system.Controllers;
 
-public class AccountController(AppDbContext _appDbContext, IPasswordHashService _passwordHashService) : Controller
+public class AccountController(AppDbContext _context, IPasswordHashService _passwordHashService) : Controller
 {
     public IActionResult Index()
     {
@@ -27,7 +27,7 @@ public class AccountController(AppDbContext _appDbContext, IPasswordHashService 
     public async Task<IActionResult> Login(LoginRequest user)
     {
         // Authenticate user (you may want to check credentials against your database)
-        var userData = await _appDbContext.Users.FirstOrDefaultAsync(x => x.UserName == user.UserName);
+        var userData = await _context.Users.FirstOrDefaultAsync(x => x.UserName == user.UserName);
         if (userData == null)
         {
             return View(user);
@@ -40,6 +40,7 @@ public class AccountController(AppDbContext _appDbContext, IPasswordHashService 
                 // Create claims
                 var claims = new List<Claim>
                 {
+                    new Claim("Id", userData.ID.ToString()),
                     new Claim(ClaimTypes.Name, userData.UserName),
                     new Claim(ClaimTypes.Role, userData.Role.ToString())
                     // Add more claims as needed
@@ -106,8 +107,8 @@ public class AccountController(AppDbContext _appDbContext, IPasswordHashService 
             Role = UserRole.EMP
         };
 
-        await _appDbContext.AddAsync(userData);
-        await _appDbContext.SaveChangesAsync();
+        await _context.AddAsync(userData);
+        await _context.SaveChangesAsync();
 
 
         return RedirectToAction("Login");

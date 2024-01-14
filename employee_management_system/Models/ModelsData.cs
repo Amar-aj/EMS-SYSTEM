@@ -2,10 +2,21 @@
 
 namespace employee_management_system.Models;
 
-public class ModelsData
+public class BaseModel
 {
+    public bool IsActive { get; set; }
+    public int CreatedBy { get; set; }
+    public DateTime CreatedOn { get; private set; }
+    public int? UpdatedBy { get; set; }
+    public DateTime UpdatedOn { get; set; }
+    public int? DeletedBy { get; set; }
+    public DateTime DeletedOn { get; set; }
+    public BaseModel()
+    {
+        CreatedOn = DateTime.Now;
+    }
 }
-public class UserModel
+public class UserModel : BaseModel
 {
     [Key]
     public int ID { get; set; }
@@ -14,7 +25,7 @@ public class UserModel
     public UserRole Role { get; set; }
 
     // Navigation property for Employee
-    public EmployeeModel Employee { get; set; }
+    public EmployeeModel? Employee { get; set; }
 }
 
 public enum UserRole
@@ -24,7 +35,7 @@ public enum UserRole
     EMP
 }
 
-public class EmployeeModel
+public class EmployeeModel : BaseModel
 {
     [Key]
     public int EmployeeID { get; set; }
@@ -39,21 +50,19 @@ public class EmployeeModel
     public string Address { get; set; }
     public string State { get; set; }
     public string District { get; set; }
-    public int CreatedBy { get; set; }
-    public DateTime UpdatedBy { get; set; }
-    public int? DeletedBy { get; set; }
+
     // Foreign keys and navigation properties
     public int UserID { get; set; }
     public UserModel User { get; set; }
 
-    public int TaskID { get; set; }
+    public int? TaskID { get; set; }
     public TaskModel Task { get; set; }
 
-    public int DepartmentId { get; set; }
+    public int? DepartmentId { get; set; }
     public DepartmentModel Department { get; set; }
 }
 
-public class CEOModel
+public class CEOModel : BaseModel
 {
     [Key]
     public int CEOID { get; set; }
@@ -65,19 +74,19 @@ public class CEOModel
     public string LastName { get; set; }
     public string Email { get; set; }
     public DateTime DOJ { get; set; }
-    public int CreatedBy { get; set; }
-    public DateTime UpdatedBy { get; set; }
-    public int? DeletedBy { get; set; }
+
 }
 
-public class SupervisorModel
+public class SupervisorModel : BaseModel
 {
     [Key]
     public int SPID { get; set; }
-    public int TaskID { get; set; }
+    public int UserID { get; set; }
+    public UserModel User { get; set; }
+    public int? TaskID { get; set; }
     public TaskModel Task { get; set; }
 
-    public int DepartmentID { get; set; }
+    public int? DepartmentID { get; set; }
     public DepartmentModel Department { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
@@ -90,13 +99,10 @@ public class SupervisorModel
     public string Address { get; set; }
     public string State { get; set; }
     public string District { get; set; }
-    public int CreatedBy { get; set; }
-    public DateTime UpdatedBy { get; set; }
-    public int? DeletedBy { get; set; }
 }
 
 
-public class TaskModel
+public class TaskModel : BaseModel
 {
     [Key]
     public int Id { get; set; }
@@ -117,7 +123,7 @@ public enum TaskStatus
 }
 
 
-public class DepartmentModel
+public class DepartmentModel : BaseModel
 {
     [Key]
     public int DeptId { get; set; }

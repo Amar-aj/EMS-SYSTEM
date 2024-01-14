@@ -22,6 +22,9 @@ builder.Services.AddTransient<IPasswordHasher<UserModel>, PasswordHasher<UserMod
 // Register the IPasswordHashService
 builder.Services.AddScoped<IPasswordHashService, PasswordHashService>();
 
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ICurrentUser, CurrentUser>();
+
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
